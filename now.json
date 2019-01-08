@@ -1,5 +1,5 @@
 {
-  "versoion": 2,
+  "version": 2,
   "builds": [
     {"src": "package.json", "use": "@now/static-build", "config": { "distDir": "dist" }},
     {"src": "dist/*.html", "use": "@now/static"},
