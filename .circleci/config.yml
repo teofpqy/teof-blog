@@ -26,5 +26,5 @@ jobs:
               git config --global user.email $GH_EMAIL
               git config --global user.name $GH_NAME
               yarn build
-              yarn run deploye -b $TARGET_BRANCH  -x
+              yarn run deploy -b $TARGET_BRANCH  -x
 
