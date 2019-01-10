@@ -27,6 +27,5 @@ jobs:
               git config --global user.name $GH_NAME
               yarn build
               cp -r .circleci dist
-              yarn run deploy -r https://teofpqy:${CODING_TOKEN}@git.dev.tencent.com/teofpqy/teof-blog.git -b coding-pages
               yarn run deploy -r https://${GH_TOKEN}@github.com/teofpqy/teof-blog.git -b $TARGET_BRANCH -x
 
