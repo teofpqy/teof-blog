@@ -5,7 +5,10 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const relativePath = (p) => path.resolve(__dirname, p);
 
 module.exports = {
-  entry: relativePath('../src/main.js'),
+  entry: [
+    'whatwg-fetch',
+    relativePath('../src/main.js'),
+  ],
   module: {
     rules: [
       {
@@ -59,10 +62,13 @@ module.exports = {
       'node_modules',
       path.resolve(__dirname, '../src')
     ],
+    alias: {
+      'utils': path.resolve(__dirname, '../src/utils')
+    },
     extensions: ['.jsx', '.js', '.css', '.less']
   },
   output: {
     path: relativePath('../dist'),
     filename: '[name].[chunkhash].js'
   },
-}
+};

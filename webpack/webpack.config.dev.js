@@ -6,4 +6,4 @@ module.exports = merge(baseConfig, {
   devServer: {
     open: true,
   }
-})
+});
