@@ -1,10 +1,9 @@
 import is from './is';
-
 /**
  *
  * @param {string} url
  * @param {object} options
- * @returns {object}
+ * @returns {Promise}
  */
 function request(url, options = {}) {
   const defaultOpt = {
@@ -13,10 +12,17 @@ function request(url, options = {}) {
       'Content-Type': 'application/json; charset=utf-8',
     }
   };
+  const finalOpt = {...defaultOpt, ...options};
   if (! is.string(url)) throw new Error('url must be string');
-  return fetch(url, {...defaultOpt, ...options}).
+
+  const cacheData= getCached({...finalOpt, ...{url}});
+  if ( cacheData !== null) {
+    return Promise.resolve(cacheData);
+  }
+  return fetch(url, finalOpt).
     then(checkStatus).
-    then(parseResponse);
+    then(parseResponse).
+    then((res) => cached(res, {...finalOpt, ...{url}}));
 }
 
 function checkStatus(response) {
@@ -27,6 +33,22 @@ function checkStatus(response) {
     error.message = response;
     throw error;
   }
+}
+
+function getCached(options = {}) {
+  if (options && options.cached && options.url && options.method) {
+    const result = localStorage.getItem(`${options.method} ${options.url}`);
+    if (result !== null) {
+      return JSON.parse(result);
+    }
+  }
+  return null;
+}
+function cached(reponse, options = {}) {
+  if (options && options.cached && options.url && options.method) {
+    localStorage.setItem(`${options.method} ${options.url}`, JSON.stringify(reponse));
+  }
+  return reponse;
 }
 
 function parseResponse(res) {

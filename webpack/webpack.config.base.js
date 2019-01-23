@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const relativePath = (p) => path.resolve(__dirname, p);
 
@@ -17,36 +17,16 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /.(css|less)$/,
+        test: /.css$/,
         exclude: /node_modules/,
         use: [
-          { loader: "style-loader" },
+          "style-loader",
           {
             loader: "css-loader", options: {
               modules: true,
             }
           },
-          { loader: 'postcss-loader' },
-          {
-            loader: "less-loader", options: {
-              module: true,
-              getLocalIdent: getCSSModuleLocalIdent
-            }
-          },
-        ]
-      },
-      {
-        test: /.(css|less)$/,
-        include: /node_modules/,
-        use: [
-          "style-loader",
-          "css-loader",
           'postcss-loader',
-          {
-            loader: "less-loader", options: {
-              javascriptEnabled: true,
-            }
-          },
         ]
       },
     ]
@@ -55,6 +35,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'static/index.html',
       inject: 'body',
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[name]_[id].css"
     })
   ],
   resolve: {
@@ -63,9 +47,10 @@ module.exports = {
       path.resolve(__dirname, '../src')
     ],
     alias: {
-      'utils': path.resolve(__dirname, '../src/utils')
+      'utils': path.resolve(__dirname, '../src/utils'),
+      'data': path.resolve(__dirname, '../src/data')
     },
-    extensions: ['.jsx', '.js', '.css', '.less']
+    extensions: ['.jsx', '.js', '.css' ]
   },
   output: {
     path: relativePath('../dist'),

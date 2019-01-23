@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "allowSyntheticDefaultImports": false,
+    "target": "es5",
     "experimentalDecorators": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "utils": ["./src/utils/index.js"]
+      "utils": [
+        "./src/utils/index.js"
+      ],
+      "data/*": [
+        "./src/data/*"
+      ]
     }
   },
   "exclude": [
-    "dist"
+    "dist",
+    "node_modules"
   ]
 }
