@@ -33,4 +33,4 @@ workflows:
       - build:
           filters:
             branchs:
-              ignore: gh-pages
+              ignore: /gh-pages/
