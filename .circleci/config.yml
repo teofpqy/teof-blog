@@ -1,9 +1,6 @@
 version: 2
 jobs:
   build:
-    branchs:
-      ignore:
-        - gh-pages
     docker:
       - image: circleci/node:10.14.2
     environment:
@@ -27,4 +24,13 @@ jobs:
               git config --global user.name $GH_NAME
               yarn build
               cp -r .circleci dist
-              yarn run deploy -r https://${GH_TOKEN}@github.com/teofpqy/teof-blog.git -b $TARGET_BRANCH -xt
+              yarn run deploy -r https://${GH_TOKEN}@github.com/teofpqy/teof-blog.git -b $TARGET_BRANCH  -xt
+
+workflows:
+  version: 2
+  run-build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: gh-pages
