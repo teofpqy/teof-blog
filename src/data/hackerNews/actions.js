@@ -6,8 +6,9 @@ export const TopStorieActionTypes = generatorAPIActionTypes('TOPSTORIES');
 export const fetchNewsActionsTypes = generatorAPIActionTypes('NEW_BY_ID');
 
 
+export const buildFetchNewURL = (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
 export function fetchNewById(id) {
-  return generatorAPIActions(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, 'NEW_BY_ID', {
+  return generatorAPIActions(buildFetchNewURL(id), 'NEW_BY_ID', {
     id
   });
 }

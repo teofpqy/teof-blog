@@ -1,45 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Grid } from '@material-ui/core';
 import NewItem from './item';
 
 class News extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      page: 1,
-      pageSize: 10,
-    };
-  }
 
   componentDidMount() {
     const { fetchTopStories } = this.props;
     fetchTopStories && fetchTopStories();
   }
 
-  pageChange() {
-
-  }
-
   render() {
-    const { topstories, fetchNewById, news } = this.props;
-    const { page, pageSize } = this.state;
-    const data = topstories.slice(0, 10);
-    return <>
-      <ul>
-        {data.map((item) => <NewItem key={item} id={item} fetchItem={fetchNewById} data={news[item]}/>)
-        }
-      </ul>
-      <div>
-        <span>pageSize: {pageSize}, currentPage: { page}</span>
-      </div>
-    </>;
+    const { news } = this.props;
+    return <Grid container spacing={8} direction="row">
+      {news.map((item) => <NewItem key={item.id} data={item}/>)}
+      </Grid>;
   }
 
 }
 News.propTypes = {
   topstories: PropTypes.any,
-  news: PropTypes.object,
+  news: PropTypes.array,
   fetchTopStories: PropTypes.func,
   fetchNewById: PropTypes.func,
 };

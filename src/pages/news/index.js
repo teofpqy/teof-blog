@@ -5,7 +5,7 @@ import News from './component';
 const mapStateToProps = (state) => {
   return {
     topstories: state.hackerNews.topstories || [],
-    news: state.hackerNews.news|| [],
+    news: Object.values(state.hackerNews.news)|| [],
   };
 };
 
