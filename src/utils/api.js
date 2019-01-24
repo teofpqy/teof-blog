@@ -24,7 +24,7 @@ export function generatorAPIActions(url, actionDesc, options = {}) {
   baseAction = { ...baseAction, ...options };
   return (dispatch) => {
     dispatch({ type: actionTyps.request, ...baseAction });
-    return request(url, { cached: true }).then((res) =>
+    return request(url, { cached: true, ...baseAction }).then((res) =>
       dispatch({
         type: actionTyps.success,
         payload: res,

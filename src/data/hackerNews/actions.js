@@ -13,5 +13,7 @@ export function fetchNewById(id) {
 }
 
 export function fetchTopStories() {
-  return generatorAPIActions('https://hacker-news.firebaseio.com/v0/topstories.json', 'TOPSTORIES');
+  return generatorAPIActions('https://hacker-news.firebaseio.com/v0/topstories.json', 'TOPSTORIES', {
+    cached: false,
+  });
 }
